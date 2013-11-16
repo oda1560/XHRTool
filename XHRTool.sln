@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.BLL", "XHRTool.BLL\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E71844AB-E250-4E7C-840E-5AC256644336}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.Testing.Service", "XHRTool.Testing\XHRTool.Testing.Service\XHRTool.Testing.Service.csproj", "{FE7A678D-9947-455A-9480-7265B59CBF72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.Testing.Service", "Testing\XHRTool.Testing.Service\XHRTool.Testing.Service.csproj", "{FE7A678D-9947-455A-9480-7265B59CBF72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

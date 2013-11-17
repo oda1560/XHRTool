@@ -3,21 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using XHRTool.BLL.Common;
 
 namespace XHRTool.BLL
 {
     public class XHRLogicManager
     {
-
-
-        public void Send()
+        public XHRResponseModel SendXHR(XHRRequestModel requestModel)
         {
-            var httpClient = new HttpClient();
-            var response = httpClient.GetAsync("http://localhost:2032/api/values").Result;
-            var content = response.Content.ReadAsStringAsync();
+            var client = new HttpClient();
+            var message = new HttpRequestMessage
+                {
+                    Method = requestModel.Verb,
+                    RequestUri = new Uri(requestModel.Url, UriKind.Absolute)
+                };
+            message.Headers.Clear();
+            requestModel.HttpHeaders.ForEach(h => message.Headers.Add(h.Name, h.Value));
+            var result = client.SendAsync(message).Result;
             
+            var response =  new XHRResponseModel
+            {
+                Content = result.Content.ReadAsStringAsync().Result,
+                StatusCode = result.StatusCode
+            };
+
+            return response;
         }
 
     }

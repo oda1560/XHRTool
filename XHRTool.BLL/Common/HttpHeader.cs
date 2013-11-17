@@ -7,9 +7,30 @@ using System.Threading.Tasks;
 
 namespace XHRTool.BLL.Common
 {
-    public class HttpHeader
+    public class HttpHeader : ModelBase
     {
-        public string Name { get; set; }
-        public string Value { get; set; }
+        private string _Name;
+        private string _Value;
+
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                if (_Name == value) return;
+                _Name = value;
+                onPropertyChanged("Name");
+            }
+        }
+        public string Value
+        {
+            get { return _Value; }
+            set
+            {
+                if (_Value == value) return;
+                _Value = value;
+                onPropertyChanged("Value");
+            }
+        }
     }
 }

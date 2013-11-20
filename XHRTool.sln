@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.XHRLogic", "XHRTool.XHRLogic\XHRTool.XHRLogic.csproj", "{B58E2862-080D-4AB8-9C25-90AA7C8A48E4}"
 EndProject
@@ -10,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.Testing.Service", "Testing\XHRTool.Testing.Service\XHRTool.Testing.Service.csproj", "{FE7A678D-9947-455A-9480-7265B59CBF72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.Testing.UnitTests", "Testing\XHRTool.Testing.UnitTests\XHRTool.Testing.UnitTests.csproj", "{09392026-5D42-40C1-A1B7-07755F28C7CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ABD68AAC-9287-4FA2-92C0-16819C227FB1}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

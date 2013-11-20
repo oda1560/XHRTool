@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using XHRTool.Testing.Service.Models;
 
 namespace XHRTool.Testing.Service.Controllers
 {
@@ -21,10 +22,6 @@ namespace XHRTool.Testing.Service.Controllers
             return "value";
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
 
         // PUT api/values/5
         public void Put(int id, [FromBody]string value)
@@ -34,6 +31,16 @@ namespace XHRTool.Testing.Service.Controllers
         // DELETE api/values/5
         public void Delete(int id)
         {
+        }
+
+        [HttpPost]
+        [ActionName("the-post")]
+        public HttpResponseMessage PostTest(TestPostModel model)
+        {
+            return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    ReasonPhrase = "Success"
+                };
         }
     }
 }

@@ -4,11 +4,17 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace XHRTool.BLL.Common
 {
     public class HttpHeader : ModelBase
     {
+        public HttpHeader(string name, string value)
+        {
+            Name = name;
+            Value = value;
+        }
         private string _Name;
         private string _Value;
 

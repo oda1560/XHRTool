@@ -13,10 +13,11 @@ namespace XHRTool.BLL.Common
     {
         public XHRRequestModel()
         {
-            HttpHeaders = new List<HttpHeader>();
+            Headers = new List<HttpHeader>();
         }
         private HttpMethod _Verb;
         private string _Url;
+        private object _Content;
 
         public HttpMethod Verb
         {
@@ -40,8 +41,17 @@ namespace XHRTool.BLL.Common
             }
         }
 
-        public List<HttpHeader> HttpHeaders { get; set; }
+        public object Content
+        {
+            get { return _Content; }
+            set
+            {
+                if (_Content == value) return;
+                _Content = value;
+                onPropertyChanged("Content");
+            }
+        }
 
-        
+        public List<HttpHeader> Headers { get; set; }
     }
 }

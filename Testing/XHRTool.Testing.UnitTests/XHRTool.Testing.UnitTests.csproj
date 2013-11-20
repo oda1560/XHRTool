@@ -56,9 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\XHRTool.BLL\XHRTool.BLL.csproj">
+    <ProjectReference Include="..\..\XHRTool.XHRLogic\XHRTool.XHRLogic.csproj">
       <Project>{b58e2862-080d-4ab8-9c25-90aa7c8a48e4}</Project>
-      <Name>XHRTool.BLL</Name>
+      <Name>XHRTool.XHRLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\XHRTool.Testing.Service\XHRTool.Testing.Service.csproj">
       <Project>{fe7a678d-9947-455a-9480-7265b59cbf72}</Project>

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
-namespace XHRTool.BLL.Common
+namespace XHRTool.XHRLogic.Common
 {
     public class HttpHeader : ModelBase
     {

@@ -10,9 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
-using XHRTool.BLL.Common;
+using XHRTool.XHRLogic.Common;
 
-namespace XHRTool.BLL
+namespace XHRTool.XHRLogic
 {
     public class XHRLogicManager
     {
@@ -27,8 +27,7 @@ namespace XHRTool.BLL
                 };
             if (requestModel.Content != null)
             {
-                //("{Value1 : Test1, Value2 : Test2}")
-                message.Content = new ObjectContent(typeof(string), "{Value1 : Test1, Value2 : Test2}", new JsonMediaTypeFormatter());
+                message.Content = new ObjectContent(typeof(string), requestModel.Content, new JsonMediaTypeFormatter());
             }
             requestModel.Headers.ForEach(h => message.Headers.Add(h.Name, h.Value));
 

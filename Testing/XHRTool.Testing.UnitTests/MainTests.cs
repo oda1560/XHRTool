@@ -4,8 +4,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using XHRTool.BLL;
-using XHRTool.BLL.Common;
+using XHRTool.XHRLogic;
+using XHRTool.XHRLogic.Common;
 using XHRTool.Testing.Service.Models;
 
 namespace XHRTool.Testing.UnitTests
@@ -43,21 +43,19 @@ namespace XHRTool.Testing.UnitTests
         public void SimplePost()
         {
             var m = new XHRLogicManager();
-            var testModel = new TestPostModel { Value1 = "Test1", Value2 = "Test2" };
-            var testModelJson = Json.Encode(testModel);
             var returnMessage = m.SendXHR(new XHRRequestModel
             {
                 Url = "http://localhost.fiddler:2032/api/values/PostTest",
                 Verb = HttpMethod.Post,
-                Content = testModel,
+                Content = "{Value1 : Test1, Value2 : Test2}",
                 Headers = new List<HttpHeader>
                 { 
-
+                    new HttpHeader("X-Test", "TestHeader Val")
                 }
             });
             Assert.IsNotNull(returnMessage);
             Assert.AreEqual(returnMessage.StatusCode, HttpStatusCode.OK);
-            //Assert.IsNotNull(returnMessage.StatusCode.);
+            Assert.IsNotNull(returnMessage.Content.Contains("T1"));
         }
     }
 }

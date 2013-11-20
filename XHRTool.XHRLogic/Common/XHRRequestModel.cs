@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XHRTool.BLL.Common
+namespace XHRTool.XHRLogic.Common
 {
     public class XHRRequestModel : ModelBase
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{B58E2862-080D-4AB8-9C25-90AA7C8A48E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XHRTool.BLL</RootNamespace>
-    <AssemblyName>XHRTool.BLL</AssemblyName>
+    <RootNamespace>XHRTool.XHRLogic</RootNamespace>
+    <AssemblyName>XHRTool.XHRLogic</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL.cs" />
+    <Compile Include="XHRLogic.cs" />
     <Compile Include="Common\HttpHeader.cs" />
     <Compile Include="Common\XHRResponseModel.cs" />
     <Compile Include="Common\ModelBase.cs" />

@@ -31,16 +31,23 @@ namespace XHRTool.XHRLogic
             }
             requestModel.Headers.ForEach(h => message.Headers.Add(h.Name, h.Value));
 
-            var result = client.SendAsync(message).Result;
-
-            var response = new XHRResponseModel
+            try
             {
-                Content = result.Content.ReadAsStringAsync().Result,
-                StatusCode = result.StatusCode
-            };
-
-            return response;
+                var result = client.SendAsync(message).Result;
+                var response = new XHRResponseModel
+                {
+                    Content = result.Content.ReadAsStringAsync().Result,
+                    StatusCode = result.StatusCode
+                };
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new XHRResponseModel()
+                {
+                    Content = ex.ToString()
+                };
+            }
         }
-
     }
 }

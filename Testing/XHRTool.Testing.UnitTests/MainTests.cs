@@ -40,6 +40,33 @@ namespace XHRTool.Testing.UnitTests
         }
 
         [TestMethod]
+        public void GetInvalidUrlLocalActiveRefuse()
+        {
+            var m = new XHRLogicManager();
+            var returnMessage = m.SendXHR(new XHRRequestModel
+            {
+                Url = "http://localhost:10034/api/values",
+                Verb = HttpMethod.Get
+            });
+            Assert.IsNotNull(returnMessage);
+            Assert.AreEqual(returnMessage.StatusCode, default(HttpStatusCode));
+            Assert.IsNotNull(returnMessage.Content);
+        }
+
+        [TestMethod]
+        public void GetInvalidUrl()
+        {
+            var m = new XHRLogicManager();
+            var returnMessage = m.SendXHR(new XHRRequestModel
+            {
+                Url = "http://localhost.fiddler:2032/api/v1alues",
+                Verb = HttpMethod.Get
+            });
+            Assert.IsNotNull(returnMessage);
+            Assert.AreEqual(returnMessage.StatusCode, HttpStatusCode.NotFound);
+        }
+
+        [TestMethod]
         public void SimplePost()
         {
             var m = new XHRLogicManager();

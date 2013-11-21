@@ -25,7 +25,7 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_Name == value) return;
                 _Name = value;
-                onPropertyChanged("Name");
+                onPropertyChanged();
             }
         }
         public string Value
@@ -35,7 +35,7 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_Value == value) return;
                 _Value = value;
-                onPropertyChanged("Value");
+                onPropertyChanged();
             }
         }
     }

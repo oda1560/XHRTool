@@ -1,0 +1,40 @@
+﻿<Window x:Class="XHRTool.UI.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        Title="XHR Tool" Height="550" Width="925" WindowStartupLocation="CenterScreen"
+        Icon="XHRTool.ico"
+        xmlns:localViewModels="clr-namespace:XHRTool.UI.WPF.ViewModels"
+        xmlns:local="clr-namespace:XHRTool.UI.WPF"
+        Loaded="MainWindow_OnLoaded" Name="_MainWindow">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.MakeRequestCommand}" 
+                        Executed="CommandBinding_OnExecuted" 
+                        CanExecute="CommandBinding_OnCanExecute" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Request Information" d:DataContext="{localViewModels:XHRRequestViewModel}" DataContext="{Binding Path=CurrentRequestViewModel, ElementName=_MainWindow}">
+            <Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Action" Style="{StaticResource AllUiElementsCommonStyle}" />
+                    <ComboBox SelectedIndex="0" Text="{Binding Path=SelectedAction, Mode=TwoWay}" Name="cbAction" Style="{StaticResource AllUiElementsCommonStyle}" ItemsSource="{Binding Path=CommonActions}" IsEditable="True" Grid.Column="1" ></ComboBox>
+                    <Label Grid.Column="2" Style="{StaticResource AllUiElementsCommonStyle}" Content="URL" />
+                    <ComboBox Text="{Binding Path=Url, Mode=TwoWay}" Name="cbUrl" Style="{StaticResource AllUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" ></ComboBox>
+                    <Button Command="{x:Static local:MainWindow.MakeRequestCommand}" Grid.Column="4" Style="{StaticResource AllUiElementsCommonStyle}" Padding="3" Content="Make Request" Name="bMakeRequest" />
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

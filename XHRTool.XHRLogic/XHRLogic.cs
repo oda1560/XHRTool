@@ -43,7 +43,7 @@ namespace XHRTool.XHRLogic
             }
             catch (Exception ex)
             {
-                return new XHRResponseModel()
+                return new XHRResponseModel
                 {
                     Content = ex.ToString()
                 };

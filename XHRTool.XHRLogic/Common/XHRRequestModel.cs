@@ -26,7 +26,7 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_Verb == value) return;
                 _Verb = value; 
-                onPropertyChanged("Verb");
+                onPropertyChanged();
             }
         }
 
@@ -37,7 +37,7 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_Url == value) return;
                 _Url = value;
-                onPropertyChanged("Url");
+                onPropertyChanged();
             }
         }
 
@@ -48,7 +48,7 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_Content == value) return;
                 _Content = value;
-                onPropertyChanged("Content");
+                onPropertyChanged();
             }
         }
 

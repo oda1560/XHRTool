@@ -25,7 +25,7 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_statusCode == value) return;
                 _statusCode = value;
-                onPropertyChanged("StatusCode");
+                onPropertyChanged();
             }
         }
 
@@ -36,8 +36,18 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_content == value) return;
                 _content = value;
-                onPropertyChanged("Content");
+                onPropertyChanged();
             }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(string.Format("Return Code: {0}", StatusCode));
+            sb.AppendLine("Headers");
+            HttpHeaders.ForEach(header => sb.AppendLine(string.Format("{0}: {1}", header.Name, header.Value)));
+            sb.AppendLine(string.Format("Content: {0}", Content));
+            return sb.ToString();
         }
     }
 }

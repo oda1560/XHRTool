@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.XHRLogic", "XHRTool.XHRLogic\XHRTool.XHRLogic.csproj", "{B58E2862-080D-4AB8-9C25-90AA7C8A48E4}"
 EndProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ABD68A
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.UI.WPF", "XHRTool.UI.WPF\XHRTool.UI.WPF.csproj", "{98B2A03F-3639-41A1-8983-15DC8E06F9B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{09392026-5D42-40C1-A1B7-07755F28C7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09392026-5D42-40C1-A1B7-07755F28C7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09392026-5D42-40C1-A1B7-07755F28C7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B2A03F-3639-41A1-8983-15DC8E06F9B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B2A03F-3639-41A1-8983-15DC8E06F9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B2A03F-3639-41A1-8983-15DC8E06F9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B2A03F-3639-41A1-8983-15DC8E06F9B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

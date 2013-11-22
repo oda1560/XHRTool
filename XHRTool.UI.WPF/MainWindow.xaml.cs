@@ -57,15 +57,28 @@ namespace XHRTool.UI.WPF
         private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var urlValid = false;
-            
+
             if (!string.IsNullOrWhiteSpace(CurrentRequestViewModel.UIUrl))
             {
-                var tempUrl = string.Empty;
-                tempUrl = Uri.IsWellFormedUriString(CurrentRequestViewModel.UIUrl, UriKind.RelativeOrAbsolute) ? 
-                    CurrentRequestViewModel.UIUrl :
-                    Uri.EscapeUriString(CurrentRequestViewModel.UIUrl);
-                
-                
+                if (Uri.IsWellFormedUriString(CurrentRequestViewModel.UIUrl, UriKind.Absolute) && (CurrentRequestViewModel.UIUrl.ToLower().StartsWith("http") || CurrentRequestViewModel.UIUrl.ToLower().StartsWith("https")))
+                {
+                    urlValid = true;
+                }
+                else
+                {
+                    if (!CurrentRequestViewModel.UIUrl.ToLower().StartsWith("http") && !CurrentRequestViewModel.UIUrl.ToLower().StartsWith("https"))
+                    {
+                        if (Uri.IsWellFormedUriString(Uri.UriSchemeHttp + Uri.SchemeDelimiter + Uri.EscapeUriString(CurrentRequestViewModel.UIUrl), UriKind.Absolute))
+                        {
+                            var schemeUri = new Uri(Uri.UriSchemeHttp + Uri.SchemeDelimiter + Uri.EscapeUriString(CurrentRequestViewModel.UIUrl), UriKind.RelativeOrAbsolute);
+                            if (schemeUri.IsAbsoluteUri)
+                            {
+                                CurrentRequestViewModel.Url = schemeUri.ToString();
+                                urlValid = true;
+                            }
+                        }
+                    }
+                }
             }
             var actionValid = !string.IsNullOrWhiteSpace(CurrentRequestViewModel.SelectedAction);
             e.CanExecute = urlValid && actionValid;

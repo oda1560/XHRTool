@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,7 +24,7 @@ namespace XHRTool.UI.WPF
     public partial class MainWindow : INotifyPropertyChanged
     {
         public static RoutedCommand MakeRequestCommand = new RoutedCommand();
-        XHRLogicManager xhrLogicManager = new XHRLogicManager();
+        readonly XHRLogicManager xhrLogicManager = new XHRLogicManager();
         private XHRRequestViewModel _currentRequestViewModel;
 
         public MainWindow()
@@ -55,11 +56,19 @@ namespace XHRTool.UI.WPF
 
         private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // TODO check if URL contains host name
-            // and if not add HTTP as default
-            var url = Uri.IsWellFormedUriString(CurrentRequestViewModel.Url, UriKind.RelativeOrAbsolute);
-            var acton = !string.IsNullOrWhiteSpace(CurrentRequestViewModel.SelectedAction);
-            e.CanExecute = url && acton;
+            var urlValid = false;
+            
+            if (!string.IsNullOrWhiteSpace(CurrentRequestViewModel.UIUrl))
+            {
+                var tempUrl = string.Empty;
+                tempUrl = Uri.IsWellFormedUriString(CurrentRequestViewModel.UIUrl, UriKind.RelativeOrAbsolute) ? 
+                    CurrentRequestViewModel.UIUrl :
+                    Uri.EscapeUriString(CurrentRequestViewModel.UIUrl);
+                
+                
+            }
+            var actionValid = !string.IsNullOrWhiteSpace(CurrentRequestViewModel.SelectedAction);
+            e.CanExecute = urlValid && actionValid;
         }
 
 

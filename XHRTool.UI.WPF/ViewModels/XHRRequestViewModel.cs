@@ -20,6 +20,7 @@ namespace XHRTool.UI.WPF.ViewModels
             {
                 if (_selectedAction == value) return;
                 _selectedAction = value;
+                //TODO: get correct verb
                 Verb = HttpMethod.Get;
                 onPropertyChanged();
             }
@@ -30,6 +31,20 @@ namespace XHRTool.UI.WPF.ViewModels
             get
             {
                 return _commonActions;
+            }
+        }
+
+        private string _UIUrl;
+
+        public string UIUrl
+        {
+            get { return _UIUrl; }
+            set
+            {
+                if (_UIUrl == value) return;
+                _UIUrl = value;
+                onPropertyChanged();
+                Url = value;
             }
         }
 

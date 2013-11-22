@@ -31,7 +31,7 @@
                     <Label Content="Action" Style="{StaticResource AllUiElementsCommonStyle}" />
                     <ComboBox SelectedIndex="0" Text="{Binding Path=SelectedAction, Mode=TwoWay}" Name="cbAction" Style="{StaticResource AllUiElementsCommonStyle}" ItemsSource="{Binding Path=CommonActions}" IsEditable="True" Grid.Column="1" ></ComboBox>
                     <Label Grid.Column="2" Style="{StaticResource AllUiElementsCommonStyle}" Content="URL" />
-                    <ComboBox Text="{Binding Path=Url, Mode=TwoWay}" Name="cbUrl" Style="{StaticResource AllUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" ></ComboBox>
+                    <ComboBox Text="{Binding Path=UIUrl, Mode=TwoWay}" Name="cbUrl" Style="{StaticResource AllUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" ></ComboBox>
                     <Button Command="{x:Static local:MainWindow.MakeRequestCommand}" Grid.Column="4" Style="{StaticResource AllUiElementsCommonStyle}" Padding="3" Content="Make Request" Name="bMakeRequest" />
                 </Grid>
             </Grid>

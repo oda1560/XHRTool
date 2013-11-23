@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <GroupBox Header="Request Information" d:DataContext="{localViewModels:XHRRequestViewModel}" DataContext="{Binding Path=CurrentRequestViewModel, ElementName=_MainWindow}">
+        <GroupBox Header="Basic Request Information" d:DataContext="{localViewModels:XHRRequestViewModel}" DataContext="{Binding Path=CurrentRequestViewModel, ElementName=_MainWindow}">
             <Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -36,5 +36,29 @@
                 </Grid>
             </Grid>
         </GroupBox>
+        <Expander DataContext="{Binding Path=CurrentRequestViewModel, ElementName=_MainWindow}" d:DataContext="{localViewModels:XHRRequestViewModel}" IsExpanded="True" Header="Advanced Request Information" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="Headers">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ToolBar><Button Content="Add Header"/></ToolBar>
+                        <DataGrid Grid.Row="1" AutoGenerateColumns="True" Height="200" CanUserAddRows="True" CanUserReorderColumns="False" CanUserDeleteRows="True" ItemsSource="{Binding Path=Headers}">
+
+                        </DataGrid>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Content" Grid.Column="1">
+
+                </GroupBox>
+            </Grid>
+        </Expander>
+
     </Grid>
 </Window>

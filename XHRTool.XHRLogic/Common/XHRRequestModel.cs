@@ -18,6 +18,7 @@ namespace XHRTool.XHRLogic.Common
         private HttpMethod _Verb;
         private string _Url;
         private object _Content;
+        private List<HttpHeader> _headers;
 
         public HttpMethod Verb
         {
@@ -52,6 +53,15 @@ namespace XHRTool.XHRLogic.Common
             }
         }
 
-        public List<HttpHeader> Headers { get; set; }
+        public List<HttpHeader> Headers
+        {
+            get { return _headers; }
+            set
+            {
+                if (_headers == value) return;
+                _headers = value;
+                onPropertyChanged();
+            }
+        }
     }
 }

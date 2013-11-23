@@ -43,11 +43,6 @@ namespace XHRTool.UI.WPF
             }
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var returnMessage = xhrLogicManager.SendXHR(CurrentRequestViewModel);
@@ -96,5 +91,16 @@ namespace XHRTool.UI.WPF
             }
         }
         #endregion
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            Properties.Settings.Default.Temp_LastUsedUrl = CurrentRequestViewModel.UIUrl;
+            Properties.Settings.Default.Save();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            CurrentRequestViewModel.UIUrl = Properties.Settings.Default.Temp_LastUsedUrl;
+        }
     }
 }

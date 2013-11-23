@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Web;
 using System.Web.Http;
 using Newtonsoft.Json;
 using XHRTool.Testing.Service.Models;
@@ -15,6 +16,7 @@ namespace XHRTool.Testing.Service.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
+            HttpContext.Current.Response.AppendHeader("X-Test", "Test Header Val");
             return new string[] { "value1", "value2" };
         }
 

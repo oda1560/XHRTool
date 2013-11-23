@@ -37,7 +37,8 @@ namespace XHRTool.XHRLogic
                 var response = new XHRResponseModel
                 {
                     Content = result.Content.ReadAsStringAsync().Result,
-                    StatusCode = result.StatusCode
+                    StatusCode = result.StatusCode,
+                    HttpHeaders = result.Headers.Select(h => new HttpHeader(h.Key, h.Value.FirstOrDefault()) ).ToList()
                 };
                 return response;
             }

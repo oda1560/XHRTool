@@ -31,5 +31,17 @@ namespace XHRTool.UI.WPF.Properties {
                 return ((string)(this["DefaultUrlScheme"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Temp_LastUsedUrl {
+            get {
+                return ((string)(this["Temp_LastUsedUrl"]));
+            }
+            set {
+                this["Temp_LastUsedUrl"] = value;
+            }
+        }
     }
 }

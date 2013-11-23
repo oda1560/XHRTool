@@ -7,7 +7,7 @@
         Icon="XHRTool.ico"
         xmlns:localViewModels="clr-namespace:XHRTool.UI.WPF.ViewModels"
         xmlns:local="clr-namespace:XHRTool.UI.WPF"
-        Loaded="MainWindow_OnLoaded" Name="_MainWindow">
+        Loaded="MainWindow_OnLoaded" Name="_MainWindow" Closing="MainWindow_OnClosing">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static local:MainWindow.MakeRequestCommand}" 
                         Executed="CommandBinding_OnExecuted" 

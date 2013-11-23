@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -20,8 +21,7 @@ namespace XHRTool.UI.WPF.ViewModels
             {
                 if (_selectedAction == value) return;
                 _selectedAction = value;
-                //TODO: get correct verb
-                Verb = HttpMethod.Get;
+                Verb = new HttpMethod(SelectedAction);
                 onPropertyChanged();
             }
         }

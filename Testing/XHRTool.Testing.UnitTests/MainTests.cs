@@ -31,7 +31,7 @@ namespace XHRTool.Testing.UnitTests
             var m = new XHRLogicManager();
             var returnMessage = m.SendXHR(new XHRRequestModel
             {
-                Url = "http://localhost.fiddler:2032/api/values",
+                Url = "http://localhost:2032/api/values",
                 Verb = HttpMethod.Get
             });
             Assert.IsNotNull(returnMessage);
@@ -59,7 +59,7 @@ namespace XHRTool.Testing.UnitTests
             var m = new XHRLogicManager();
             var returnMessage = m.SendXHR(new XHRRequestModel
             {
-                Url = "http://localhost.fiddler:2032/api/v1alues",
+                Url = "http://localhost:2032/api/v1alues",
                 Verb = HttpMethod.Get
             });
             Assert.IsNotNull(returnMessage);
@@ -72,7 +72,7 @@ namespace XHRTool.Testing.UnitTests
             var m = new XHRLogicManager();
             var returnMessage = m.SendXHR(new XHRRequestModel
             {
-                Url = "http://localhost.fiddler:2032/api/values/PostTest",
+                Url = "http://localhost:2032/api/values/PostTest",
                 Verb = HttpMethod.Post,
                 Content = "{Value1 : Test1, Value2 : Test2}",
                 Headers = new List<HttpHeader>

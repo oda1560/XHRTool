@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,6 +63,15 @@ namespace XHRTool.XHRLogic.Common
                 _headers = value;
                 onPropertyChanged();
             }
+        }
+
+        public static readonly List<string> CommonVerbs;
+        public static readonly List<HttpHeader> CommonHeaders;
+
+        static XHRRequestModel()
+        {
+            CommonVerbs = new List<string>(typeof(HttpMethod).GetProperties(BindingFlags.Public | BindingFlags.Static).Where(p => p.PropertyType == typeof(HttpMethod)).Select(p => p.Name.ToUpper()).ToList());
+            CommonHeaders = typeof(HttpRequestHeaders).GetProperties().Select(p => new HttpHeader(p.Name, string.Empty)).ToList();
         }
     }
 }

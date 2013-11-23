@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +29,14 @@ namespace XHRTool.UI.WPF.ViewModels
                 onPropertyChanged();
             }
         }
-        static readonly List<string> _commonActions;
-        public List<string> CommonActions
+        public ObservableCollection<string> CommonActions
         {
             get
             {
-                return _commonActions;
+                return new ObservableCollection<string>(CommonVerbs);
             }
         }
+
 
         private string _UIUrl;
 
@@ -48,9 +52,22 @@ namespace XHRTool.UI.WPF.ViewModels
             }
         }
 
-        static XHRRequestViewModel()
+        private ObservableCollection<HttpHeaderViewModel> _UIHeaders;
+
+        public ObservableCollection<HttpHeaderViewModel> UIHeaders
         {
-            _commonActions = typeof(HttpMethod).GetProperties(BindingFlags.Public | BindingFlags.Static).Where(p => p.PropertyType == typeof(HttpMethod)).Select(p => p.Name.ToUpper()).ToList();
+            get 
+            {
+                return _UIHeaders ?? (_UIHeaders = new ObservableCollection<HttpHeaderViewModel>(CommonHeaders.Select(h => new HttpHeaderViewModel(h)).ToList()));
+            }
+            set
+            {
+                if (_UIHeaders == value) return;
+                _UIHeaders = value;
+                onPropertyChanged();
+            }
         }
+
+        // TODO store usual values for headers
     }
 }

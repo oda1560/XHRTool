@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,10 @@ namespace XHRTool.XHRLogic.Common
 {
     public class HttpHeader : ModelBase
     {
+        public HttpHeader()
+        {
+            
+        }
         public HttpHeader(string name, string value)
         {
             Name = name;
@@ -36,6 +42,26 @@ namespace XHRTool.XHRLogic.Common
                 if (_Value == value) return;
                 _Value = value;
                 onPropertyChanged();
+            }
+        }
+        HttpRequestMessage validationMessage = new HttpRequestMessage(); 
+        public bool? IsValid()
+        {
+            if (string.IsNullOrWhiteSpace(Value))
+            {
+                return false;
+            }
+            // HACK: need a way to do this property without throwing exceptions
+            // and having a dummy http request message class
+            try
+            {
+                validationMessage.Headers.Add(Name, Value);
+                return true;
+            }
+            catch
+            {
+                validationMessage.Headers.TryAddWithoutValidation(Name, Value);
+                return null;
             }
         }
     }

@@ -29,7 +29,7 @@ namespace XHRTool.XHRLogic
             {
                 message.Content = new ObjectContent(typeof(string), requestModel.Content, new JsonMediaTypeFormatter());
             }
-            requestModel.Headers.ForEach(h => message.Headers.Add(h.Name, h.Value));
+            requestModel.Headers.ForEach(h => message.Headers.TryAddWithoutValidation(h.Name, h.Value));
 
             try
             {

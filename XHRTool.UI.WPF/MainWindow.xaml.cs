@@ -45,6 +45,7 @@ namespace XHRTool.UI.WPF
 
         private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
+            CurrentRequestViewModel.Headers = CurrentRequestViewModel.UIHeaders.Where(h => h.IsSelected).Select(h => new HttpHeader(h.Name, h.Value)).ToList();
             var returnMessage = xhrLogicManager.SendXHR(CurrentRequestViewModel);
             MessageBox.Show(returnMessage.ToString());
         }

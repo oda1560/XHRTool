@@ -1,9 +1,50 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="AllUiElementsCommonStyle" TargetType="FrameworkElement">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:localViewModels="clr-namespace:XHRTool.UI.WPF.ViewModels"
+                    xmlns:localHelpers="clr-namespace:XHRTool.UI.WPF.Helpers">
+    <localHelpers:RequestHeadersGridRowBackgroundConverter x:Key="HeadersGridRowBackgroundConverter"/>
+    <Style x:Key="CommonUiElementsCommonStyle" TargetType="FrameworkElement">
         <Style.Setters>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="Margin" Value="5"></Setter>
         </Style.Setters>
     </Style>
+
+    <DataTemplate  x:Key="ReadOnlyRequestHeaderTemplate" DataType="{x:Type localViewModels:HttpHeaderViewModel}">
+        <TextBlock Text="{Binding Path=Value}" Background="{Binding Path=IsInvalidValue, Converter={StaticResource HeadersGridRowBackgroundConverter}}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EditingRequestHeaderTemplate" DataType="{x:Type localViewModels:HttpHeaderViewModel}">
+        <ComboBox Background="{Binding Path=IsInvalidValue, Converter={StaticResource HeadersGridRowBackgroundConverter}}" IsEditable="True" Text="{Binding Path=Value, Mode=TwoWay}"/>
+    </DataTemplate>
+
+    <Style x:Key="HeadersDataGridStyle" TargetType="DataGrid">
+        <Style.Setters>
+            <Setter Property="GridLinesVisibility" Value="None"></Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="HeadersDataGridItemContainerStyle" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+
+    </Style>
+
+    <Style x:Key="HeadersDataGridCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+        <Style.Setters>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="2"></Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="HeadersDataGridRowStyle"  TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+
+    </Style>
+
+    <SolidColorBrush x:Key="ValidationFailedBrush" Color="Yellow"/>
 </ResourceDictionary>

@@ -23,7 +23,6 @@ namespace XHRTool.UI.WPF.ViewModels
                 var isValid = IsValid();
                 IsSelected = isValid != false;
                 IsInvalidValue = !isValid.HasValue;
-                // TODO: create data trigger to show yellow in grid
             }
         }
 

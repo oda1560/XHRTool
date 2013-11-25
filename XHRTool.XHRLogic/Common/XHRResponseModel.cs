@@ -26,6 +26,15 @@ namespace XHRTool.XHRLogic.Common
                 if (_statusCode == value) return;
                 _statusCode = value;
                 onPropertyChanged();
+                onPropertyChanged("Summary");
+            }
+        }
+
+        public string Summary
+        {
+            get
+            {
+                return ToString();
             }
         }
 
@@ -37,6 +46,7 @@ namespace XHRTool.XHRLogic.Common
                 if (_content == value) return;
                 _content = value;
                 onPropertyChanged();
+                onPropertyChanged("Summary");
             }
         }
 

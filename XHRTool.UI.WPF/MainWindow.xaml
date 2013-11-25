@@ -44,32 +44,44 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <GroupBox Header="Headers">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <ToolBar Background="#EBEBEB">
-                            <Button Content="Add Header"/>
-                            <Label Content="Name:"/>
-                            <TextBox Width="100" />
-                            <Label Content="Value:"/>
-                            <TextBox Width="150"/>
-                        </ToolBar>
-                        <DataGrid RowStyle="{StaticResource HeadersDataGridRowStyle}" CellStyle="{StaticResource HeadersDataGridCellStyle}" ItemContainerStyle="{StaticResource HeadersDataGridItemContainerStyle}" Style="{StaticResource HeadersDataGridStyle}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=UIHeaders}">
-                            <DataGrid.Columns>
-                                <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding Path=IsSelected, Mode=TwoWay}" />
-                                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=Name}" />
-                                <DataGridTemplateColumn Width="*" Header="Value" CellEditingTemplate="{StaticResource EditingRequestHeaderTemplate}" CellTemplate="{StaticResource ReadOnlyRequestHeaderTemplate}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
+                    <TabControl>
+                       <TabItem Header="Common">
+                            <DataGrid RowStyle="{StaticResource HeadersDataGridRowStyle}" CellStyle="{StaticResource HeadersDataGridCellStyle}" ItemContainerStyle="{StaticResource HeadersDataGridItemContainerStyle}" Style="{StaticResource HeadersDataGridStyle}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=UIHeaders}">
+                                <DataGrid.Columns>
+                                    <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding Path=IsSelected, Mode=TwoWay}" />
+                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=Name}" />
+                                    <DataGridTemplateColumn Width="*" Header="Value" CellEditingTemplate="{StaticResource EditingRequestHeaderTemplate}" CellTemplate="{StaticResource ReadOnlyRequestHeaderTemplate}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Text View">
+                            <TextBox Style="{StaticResource EditableMultilineTextBoxStyle}" Text="{Binding Path=TextViewHeaders, Mode=TwoWay}"/>
+                        </TabItem>
+                    </TabControl>
+                    
                 </GroupBox>
                 <GroupBox Header="Content" Grid.Column="1">
-                    <TextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding Path=Content, Mode=TwoWay}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+                    <TextBox Text="{Binding Path=Content, Mode=TwoWay}" Style="{StaticResource EditableMultilineTextBoxStyle}" />
                 </GroupBox>
             </Grid>
         </Expander>
+        <GroupBox Header="Response Information" Grid.Row="2" DataContext="{Binding Path=CurrentResponseViewModel, ElementName=_MainWindow}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width=".3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Style="{StaticResource EditableMultilineTextBoxStyle}"  IsReadOnly="True" Text="{Binding Path=Summary, Mode=OneWay}"/>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Notes"/>
+                    <TextBox Grid.Row="1" Style="{StaticResource EditableMultilineTextBoxStyle}"  Margin="5,0,0,0" />
+                </Grid>
+            </Grid>
+        </GroupBox>
 
     </Grid>
 </Window>

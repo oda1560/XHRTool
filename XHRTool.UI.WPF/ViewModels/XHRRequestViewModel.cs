@@ -38,6 +38,58 @@ namespace XHRTool.UI.WPF.ViewModels
         }
 
 
+        public string TextViewHeaders
+        {
+            get 
+            { 
+                return headersCollectionToString(UIHeaders);
+            }
+            set
+            {
+                updateHeadersCollection(value);
+                onPropertyChanged();
+            }
+        }
+
+        string headersCollectionToString(ObservableCollection<HttpHeaderViewModel> headersCollection)
+        {
+            var sb = new StringBuilder();
+            headersCollection.Where(h => h.IsSelected).ToList().ForEach(h => sb.AppendFormat("{0}{1}: {2}", Environment.NewLine, h.Name, h.Value));
+            return sb.ToString().Trim();
+        }
+
+        void updateHeadersCollection(string headersText)
+        {
+            var headerLines = headersText.Split(new [] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            UIHeaders.ToList().ForEach(h => 
+                {
+                    h.IsSelected = false;
+                    h.Value = string.Empty;
+                });
+            headerLines.ForEach(l => 
+                {
+                    if (!l.Contains(":"))
+                    {
+                        return;
+                    }
+                    var headerData = l.Split(new [] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (headerData.Length == 2)
+                    {
+                        var existingHeader = UIHeaders.FirstOrDefault(h => h.Name.Equals(headerData[0], StringComparison.OrdinalIgnoreCase));
+                        if (existingHeader != null)
+                        {
+                            existingHeader.IsSelected = true;
+                            existingHeader.Value = headerData[1];
+                        }
+                        else
+                        {
+                            var newHeader = new HttpHeaderViewModel { Name = headerData[0], Value = headerData[1], IsSelected = true };
+                            UIHeaders.Insert(0, newHeader);
+                        }
+                    }
+                });
+        }
+
         private string _UIUrl;
 
         public string UIUrl
@@ -58,16 +110,24 @@ namespace XHRTool.UI.WPF.ViewModels
         {
             get 
             {
-                return _UIHeaders ?? (_UIHeaders = new ObservableCollection<HttpHeaderViewModel>(CommonHeaders.Select(h => new HttpHeaderViewModel(h)).ToList()));
+                if (_UIHeaders == null)
+                {
+                    var headersList = CommonHeaders.Select(h => new HttpHeaderViewModel(h)).ToList();
+                    _UIHeaders = new ObservableCollection<HttpHeaderViewModel>(headersList);
+                    headersList.ForEach(h => h.PropertyChanged += (sender, args) => onPropertyChanged("TextViewHeaders"));
+                    
+                }
+                return _UIHeaders;
             }
             set
             {
                 if (_UIHeaders == value) return;
                 _UIHeaders = value;
                 onPropertyChanged();
+                onPropertyChanged("TextViewHeaders");
             }
         }
 
-        // TODO store usual values for headers
+        // TODO store common values for headers
     }
 }

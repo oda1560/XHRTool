@@ -43,5 +43,17 @@ namespace XHRTool.UI.WPF.Properties {
                 this["Temp_LastUsedUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Notes {
+            get {
+                return ((string)(this["Notes"]));
+            }
+            set {
+                this["Notes"] = value;
+            }
+        }
     }
 }

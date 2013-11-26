@@ -27,10 +27,22 @@ namespace XHRTool.UI.WPF
         readonly XHRLogicManager xhrLogicManager = new XHRLogicManager();
         private XHRRequestViewModel _currentRequestViewModel;
         private XHRResponseModel _currentResponseViewModel;
+        private string _notes;
 
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public string Notes
+        {
+            get { return _notes; }
+            set 
+            {
+                if (_notes == value) return;
+                _notes = value; 
+                OnPropertyChanged();
+            }
         }
 
         public XHRRequestViewModel CurrentRequestViewModel
@@ -107,12 +119,14 @@ namespace XHRTool.UI.WPF
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             Properties.Settings.Default.Temp_LastUsedUrl = CurrentRequestViewModel.UIUrl;
+            Properties.Settings.Default.Notes = Notes;
             Properties.Settings.Default.Save();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             CurrentRequestViewModel.UIUrl = Properties.Settings.Default.Temp_LastUsedUrl;
+            Notes = Properties.Settings.Default.Notes;
         }
     }
 }

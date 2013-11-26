@@ -78,7 +78,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Content="Notes"/>
-                    <TextBox Grid.Row="1" Style="{StaticResource EditableMultilineTextBoxStyle}"  Margin="5,0,0,0" />
+                    <TextBox Grid.Row="1" Text="{Binding Path=Notes, ElementName=_MainWindow, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource EditableMultilineTextBoxStyle}"  Margin="5,0,0,0" />
                 </Grid>
             </Grid>
         </GroupBox>

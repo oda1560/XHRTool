@@ -55,5 +55,29 @@ namespace XHRTool.UI.WPF.Properties {
                 this["Notes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Headers {
+            get {
+                return ((string)(this["Headers"]));
+            }
+            set {
+                this["Headers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Content {
+            get {
+                return ((string)(this["Content"]));
+            }
+            set {
+                this["Content"] = value;
+            }
+        }
     }
 }

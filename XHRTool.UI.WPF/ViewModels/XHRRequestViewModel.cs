@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using XHRTool.XHRLogic.Common;
 
@@ -23,7 +24,7 @@ namespace XHRTool.UI.WPF.ViewModels
             get { return _selectedAction; }
             set 
             {
-                if (_selectedAction == value) return;
+                if (_selectedAction == value || string.IsNullOrWhiteSpace(value) || !Regex.IsMatch(value, "([a-z]|[0-9])+", RegexOptions.IgnoreCase)) return;
                 _selectedAction = value;
                 Verb = new HttpMethod(SelectedAction);
                 onPropertyChanged();
@@ -115,7 +116,8 @@ namespace XHRTool.UI.WPF.ViewModels
                     var headersList = CommonHeaders.Select(h => new HttpHeaderViewModel(h)).ToList();
                     _UIHeaders = new ObservableCollection<HttpHeaderViewModel>(headersList);
                     headersList.ForEach(h => h.PropertyChanged += (sender, args) => onPropertyChanged("TextViewHeaders"));
-                    
+                    _UIHeaders.CollectionChanged += (sender, args) => 
+                        args.NewItems.OfType<INotifyPropertyChanged>().ToList().ForEach(item => item.PropertyChanged += (o, eventArgs) => onPropertyChanged("TextViewHeaders"));
                 }
                 return _UIHeaders;
             }

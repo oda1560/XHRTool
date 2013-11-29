@@ -120,6 +120,8 @@ namespace XHRTool.UI.WPF
         {
             Properties.Settings.Default.Temp_LastUsedUrl = CurrentRequestViewModel.UIUrl;
             Properties.Settings.Default.Notes = Notes;
+            Properties.Settings.Default.Headers = CurrentRequestViewModel.TextViewHeaders;
+            Properties.Settings.Default.Content = CurrentRequestViewModel.Content;
             Properties.Settings.Default.Save();
         }
 
@@ -127,6 +129,8 @@ namespace XHRTool.UI.WPF
         {
             CurrentRequestViewModel.UIUrl = Properties.Settings.Default.Temp_LastUsedUrl;
             Notes = Properties.Settings.Default.Notes;
+            CurrentRequestViewModel.TextViewHeaders = Properties.Settings.Default.Headers;
+            CurrentRequestViewModel.Content = Properties.Settings.Default.Content;
         }
     }
 }

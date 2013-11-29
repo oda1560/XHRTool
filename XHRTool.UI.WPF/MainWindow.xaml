@@ -30,10 +30,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Action" Style="{StaticResource CommonUiElementsCommonStyle}" />
-                    <ComboBox SelectedIndex="0" Text="{Binding Path=SelectedAction, Mode=TwoWay}" Name="cbAction" Style="{StaticResource CommonUiElementsCommonStyle}" ItemsSource="{Binding Path=CommonActions}" IsEditable="True" Grid.Column="1" ></ComboBox>
+                    <ComboBox SelectedIndex="0" Text="{Binding Path=SelectedAction, Mode=TwoWay}" Name="cbAction" Style="{StaticResource CommonUiElementsCommonStyle}" ItemsSource="{Binding Path=CommonActions}" IsEditable="True" Grid.Column="1" />
                     <Label Grid.Column="2" Style="{StaticResource CommonUiElementsCommonStyle}" Content="URL" />
-                    <ComboBox Text="{Binding Path=UIUrl, Mode=TwoWay}" Name="cbUrl" Style="{StaticResource CommonUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" ></ComboBox>
-                    <Button Command="{x:Static local:MainWindow.MakeRequestCommand}" Grid.Column="4" Style="{StaticResource CommonUiElementsCommonStyle}" Padding="3" Content="Make Request" Name="bMakeRequest" />
+                    <ComboBox Text="{Binding Path=UIUrl, Mode=TwoWay}" Name="cbUrl" Style="{StaticResource CommonUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" />
+                    <Button IsDefault="True" Command="{x:Static local:MainWindow.MakeRequestCommand}" Grid.Column="4" Style="{StaticResource CommonUiElementsCommonStyle}" Padding="3" Content="Make Request" Name="bMakeRequest" />
                 </Grid>
             </Grid>
         </GroupBox>
@@ -45,7 +45,10 @@
                 </Grid.ColumnDefinitions>
                 <GroupBox Header="Headers">
                     <TabControl>
-                       <TabItem Header="Common">
+                        <TabItem Header="Text View">
+                            <TextBox Style="{StaticResource EditableMultilineTextBoxStyle}" Text="{Binding Path=TextViewHeaders, Mode=TwoWay}"/>
+                        </TabItem>
+                        <TabItem Header="Grid View">
                             <DataGrid RowStyle="{StaticResource HeadersDataGridRowStyle}" CellStyle="{StaticResource HeadersDataGridCellStyle}" ItemContainerStyle="{StaticResource HeadersDataGridItemContainerStyle}" Style="{StaticResource HeadersDataGridStyle}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=UIHeaders}">
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding Path=IsSelected, Mode=TwoWay}" />
@@ -53,9 +56,6 @@
                                     <DataGridTemplateColumn Width="*" Header="Value" CellEditingTemplate="{StaticResource EditingRequestHeaderTemplate}" CellTemplate="{StaticResource ReadOnlyRequestHeaderTemplate}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
-                        </TabItem>
-                        <TabItem Header="Text View">
-                            <TextBox Style="{StaticResource EditableMultilineTextBoxStyle}" Text="{Binding Path=TextViewHeaders, Mode=TwoWay}"/>
                         </TabItem>
                     </TabControl>
                     

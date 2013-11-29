@@ -73,17 +73,17 @@ namespace XHRTool.UI.WPF.ViewModels
                         return;
                     }
                     var headerData = l.Split(new [] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (headerData.Length == 2)
+                    if (headerData.Length >= 2)
                     {
                         var existingHeader = UIHeaders.FirstOrDefault(h => h.Name.Equals(headerData[0], StringComparison.OrdinalIgnoreCase));
                         if (existingHeader != null)
                         {
                             existingHeader.IsSelected = true;
-                            existingHeader.Value = headerData[1];
+                            existingHeader.Value = string.Join(string.Empty, headerData.Skip(1));
                         }
                         else
                         {
-                            var newHeader = new HttpHeaderViewModel { Name = headerData[0], Value = headerData[1], IsSelected = true };
+                            var newHeader = new HttpHeaderViewModel { Name = headerData[0], Value = string.Join(string.Empty, headerData.Skip(1)), IsSelected = true };
                             UIHeaders.Insert(0, newHeader);
                         }
                     }

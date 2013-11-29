@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,6 +11,7 @@ using System.Xml.Schema;
 
 namespace XHRTool.XHRLogic.Common
 {
+    [DebuggerDisplay("HttpHeader {Name}: {Value}")]
     public class HttpHeader : ModelBase
     {
         public HttpHeader()

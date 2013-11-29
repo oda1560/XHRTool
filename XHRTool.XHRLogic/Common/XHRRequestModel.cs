@@ -18,7 +18,7 @@ namespace XHRTool.XHRLogic.Common
         }
         private HttpMethod _Verb;
         private string _Url;
-        private object _Content;
+        private string _Content;
         private List<HttpHeader> _headers;
 
         public HttpMethod Verb
@@ -43,7 +43,7 @@ namespace XHRTool.XHRLogic.Common
             }
         }
 
-        public object Content
+        public string Content
         {
             get { return _Content; }
             set
@@ -62,6 +62,14 @@ namespace XHRTool.XHRLogic.Common
                 if (_headers == value) return;
                 _headers = value;
                 onPropertyChanged();
+            }
+        }
+
+        public bool HasContent 
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Content);
             }
         }
 

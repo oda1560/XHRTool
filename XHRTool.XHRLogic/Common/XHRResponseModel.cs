@@ -10,6 +10,7 @@ namespace XHRTool.XHRLogic.Common
     public class XHRResponseModel : ModelBase
     {
         private HttpStatusCode _statusCode;
+        private string _statusMessage;
         private string _content;
 
         public XHRResponseModel()
@@ -25,6 +26,18 @@ namespace XHRTool.XHRLogic.Common
             {
                 if (_statusCode == value) return;
                 _statusCode = value;
+                onPropertyChanged();
+                onPropertyChanged("Summary");
+            }
+        }
+
+        public string StatusMessage
+        {
+            get { return _statusMessage; }
+            set
+            {
+                if (_statusMessage == value) return;
+                _statusMessage = value;
                 onPropertyChanged();
                 onPropertyChanged("Summary");
             }
@@ -53,7 +66,8 @@ namespace XHRTool.XHRLogic.Common
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("Return Code: {0}", StatusCode));
+            sb.AppendLine(string.Format("Return Code: {0}", (int)StatusCode));
+            sb.AppendLine(string.Format("Return Message: {0}", StatusMessage));
             sb.AppendLine("Headers");
             HttpHeaders.ForEach(header => sb.AppendLine(string.Format("{0}: {1}", header.Name, header.Value)));
             sb.AppendLine(string.Format("Content: {0}", Content));

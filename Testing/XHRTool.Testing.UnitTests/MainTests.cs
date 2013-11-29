@@ -19,8 +19,9 @@ namespace XHRTool.Testing.UnitTests
             var m = new XHRLogicManager();
             var ret = m.SendXHR(new XHRRequestModel
                 {
-                    Url = "http://localhost.fiddler:2032/api/values",
-                    Verb = HttpMethod.Get
+                    Url = "http://www.google.com/",
+                    Verb = HttpMethod.Get,
+                    //Headers = new List<HttpHeader>{ new HttpHeader(") }
                 });
 
         }
@@ -67,7 +68,7 @@ namespace XHRTool.Testing.UnitTests
         }
 
         [TestMethod]
-        public void SimplePost()
+        public void SimplePostNoMediaType()
         {
             var m = new XHRLogicManager();
             var returnMessage = m.SendXHR(new XHRRequestModel
@@ -81,7 +82,26 @@ namespace XHRTool.Testing.UnitTests
                 }
             });
             Assert.IsNotNull(returnMessage);
-            Assert.AreEqual(returnMessage.StatusCode, HttpStatusCode.OK);
+            Assert.AreEqual(HttpStatusCode.UnsupportedMediaType, returnMessage.StatusCode);
+        }
+
+        [TestMethod]
+        public void SimplePost()
+        {
+            var m = new XHRLogicManager();
+            var returnMessage = m.SendXHR(new XHRRequestModel
+            {
+                Url = "http://localhost:2032/api/values/PostTest",
+                Verb = HttpMethod.Post,
+                Content = "{Value1 : Test1, Value2 : Test2}",
+                Headers = new List<HttpHeader>
+                { 
+                    new HttpHeader("X-Test", "TestHeader Val"),
+                    new HttpHeader("Content-Type", "application/json")
+                }
+            });
+            Assert.IsNotNull(returnMessage);
+            Assert.AreEqual(HttpStatusCode.OK, returnMessage.StatusCode);
             Assert.IsNotNull(returnMessage.Content.Contains("T1"));
         }
     }

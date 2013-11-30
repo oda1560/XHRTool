@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using XHRTool.UI.WPF.ViewModels;
 using XHRTool.XHRLogic;
 using XHRTool.XHRLogic.Common;
@@ -28,6 +33,9 @@ namespace XHRTool.UI.WPF
         private XHRRequestViewModel _currentRequestViewModel;
         private XHRResponseModel _currentResponseViewModel;
         private string _notes;
+        private ObservableCollection<string> _urlHistory;
+        private readonly BinaryFormatter _formatter = new BinaryFormatter();
+        readonly string _urlHistoryPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"XHRTool\UrlHistory.bin");
 
         public MainWindow()
         {
@@ -69,8 +77,49 @@ namespace XHRTool.UI.WPF
 
         private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
+            if (!UrlHistory.Contains(CurrentRequestViewModel.UIUrl))
+            {
+                UrlHistory.Add(CurrentRequestViewModel.UIUrl);
+                saveHistory();
+            }
             CurrentRequestViewModel.Headers = CurrentRequestViewModel.UIHeaders.Where(h => h.IsSelected).Select(h => new HttpHeader(h.Name, h.Value)).ToList();
-            CurrentResponseViewModel = xhrLogicManager.SendXHR(CurrentRequestViewModel);
+            _MainWindow.IsEnabled = false;
+            new Action(() => CurrentResponseViewModel = xhrLogicManager.SendXHR(CurrentRequestViewModel)).BeginInvoke((ar => 
+                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => _MainWindow.IsEnabled = true))), null);
+        }
+
+        void saveHistory()
+        {
+            try
+            {
+                var stream = new FileStream(_urlHistoryPath, FileMode.Create);
+                _formatter.Serialize(stream, UrlHistory);
+                stream.Flush();
+                stream.Close();
+                stream.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteLog(ex);
+            }
+        }
+
+        ObservableCollection<string> loadUrlHistory()
+        {
+            try
+            {
+                if (!File.Exists(_urlHistoryPath))
+                {
+                    return new ObservableCollection<string>();
+                }
+                var collection = _formatter.Deserialize(File.Open(_urlHistoryPath, FileMode.Open)) as ObservableCollection<string>;
+                return collection;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteLog(ex);
+                return new ObservableCollection<string>();
+            }
         }
 
         private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -116,9 +165,27 @@ namespace XHRTool.UI.WPF
         }
         #endregion
 
+        public ObservableCollection<string> UrlHistory
+        {
+            get
+            {
+                if (_urlHistory == null)
+                {
+                    _urlHistory = loadUrlHistory();
+                    _urlHistory.CollectionChanged += (sender, args) => saveHistory();
+                }
+                return _urlHistory;
+            }
+            set
+            {
+                if (_urlHistory == value) return;
+                _urlHistory = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            Properties.Settings.Default.Temp_LastUsedUrl = CurrentRequestViewModel.UIUrl;
             Properties.Settings.Default.Notes = Notes;
             Properties.Settings.Default.Headers = CurrentRequestViewModel.TextViewHeaders;
             Properties.Settings.Default.Content = CurrentRequestViewModel.Content;
@@ -127,7 +194,17 @@ namespace XHRTool.UI.WPF
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            CurrentRequestViewModel.UIUrl = Properties.Settings.Default.Temp_LastUsedUrl;
+            try
+            {
+               if (!Directory.Exists(System.IO.Path.GetDirectoryName(_urlHistoryPath)))
+               {
+                   Directory.CreateDirectory(System.IO.Path.GetDirectoryName(_urlHistoryPath));
+               }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteLog(ex);
+            }
             Notes = Properties.Settings.Default.Notes;
             CurrentRequestViewModel.TextViewHeaders = Properties.Settings.Default.Headers;
             CurrentRequestViewModel.Content = Properties.Settings.Default.Content;

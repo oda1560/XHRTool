@@ -5,9 +5,6 @@
     <Setting Name="DefaultUrlScheme" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http</Value>
     </Setting>
-    <Setting Name="Temp_LastUsedUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="Notes" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

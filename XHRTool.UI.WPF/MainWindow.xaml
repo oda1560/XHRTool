@@ -32,7 +32,7 @@
                     <Label Content="Action" Style="{StaticResource CommonUiElementsCommonStyle}" />
                     <ComboBox SelectedIndex="0" Text="{Binding Path=SelectedAction, Mode=TwoWay}" Name="cbAction" Style="{StaticResource CommonUiElementsCommonStyle}" ItemsSource="{Binding Path=CommonActions}" IsEditable="True" Grid.Column="1" />
                     <Label Grid.Column="2" Style="{StaticResource CommonUiElementsCommonStyle}" Content="URL" />
-                    <ComboBox Text="{Binding Path=UIUrl, Mode=TwoWay}" Name="cbUrl" Style="{StaticResource CommonUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" />
+                    <ComboBox Text="{Binding Path=UIUrl, Mode=TwoWay}" ItemsSource="{Binding Path=UrlHistory, ElementName=_MainWindow}" SelectedIndex="0" Name="cbUrl" Style="{StaticResource CommonUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" />
                     <Button IsDefault="True" Command="{x:Static local:MainWindow.MakeRequestCommand}" Grid.Column="4" Style="{StaticResource CommonUiElementsCommonStyle}" Padding="3" Content="Make Request" Name="bMakeRequest" />
                 </Grid>
             </Grid>

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorLogger.cs" />
     <Compile Include="XHRLogic.cs" />
     <Compile Include="Common\HttpHeader.cs" />
     <Compile Include="Common\XHRResponseModel.cs" />

@@ -79,7 +79,7 @@ namespace XHRTool.UI.WPF
         {
             if (!UrlHistory.Contains(CurrentRequestViewModel.UIUrl))
             {
-                UrlHistory.Add(CurrentRequestViewModel.UIUrl);
+                UrlHistory.Insert(0, CurrentRequestViewModel.UIUrl);
                 saveHistory();
             }
             CurrentRequestViewModel.Headers = CurrentRequestViewModel.UIHeaders.Where(h => h.IsSelected).Select(h => new HttpHeader(h.Name, h.Value)).ToList();

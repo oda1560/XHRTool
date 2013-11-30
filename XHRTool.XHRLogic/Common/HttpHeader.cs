@@ -16,15 +16,28 @@ namespace XHRTool.XHRLogic.Common
     {
         public HttpHeader()
         {
-            
+
         }
-        public HttpHeader(string name, string value)
+
+        public HttpHeader(string name)
         {
             Name = name;
+        }
+        public HttpHeader(string name, string value)
+            : this(name)
+        {
             Value = value;
         }
+
+        public HttpHeader(string name, List<string> commonValues)
+            : this(name)
+        {
+            CommonValues = commonValues;
+        }
+
         private string _Name;
         private string _Value;
+        private List<string> _CommonValues;
 
         public string Name
         {
@@ -46,25 +59,20 @@ namespace XHRTool.XHRLogic.Common
                 onPropertyChanged();
             }
         }
-        HttpRequestMessage validationMessage = new HttpRequestMessage(); 
+
+        public List<string> CommonValues
+        {
+            get { return _CommonValues; }
+            set
+            {
+                if (_CommonValues == value) return;
+                _CommonValues = value;
+                onPropertyChanged();
+            }
+        }
         public bool? IsValid()
         {
-            if (string.IsNullOrWhiteSpace(Value))
-            {
-                return false;
-            }
-            // HACK: need a way to do this property without throwing exceptions
-            // and having a dummy http request message class
-            try
-            {
-                validationMessage.Headers.Add(Name, Value);
-                return true;
-            }
-            catch
-            {
-                validationMessage.Headers.TryAddWithoutValidation(Name, Value);
-                return null;
-            }
+            return !string.IsNullOrWhiteSpace(Value);
         }
     }
 }

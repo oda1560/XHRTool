@@ -43,6 +43,7 @@ namespace XHRTool.UI.WPF.ViewModels
         {
             Value = baseHeader.Value;
             Name = baseHeader.Name;
+            CommonValues = baseHeader.CommonValues;
             PropertyChanged += OnPropertyChanged;
         }
         private bool _IsSelected;

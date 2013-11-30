@@ -15,7 +15,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="EditingRequestHeaderTemplate" DataType="{x:Type localViewModels:HttpHeaderViewModel}">
-        <ComboBox Background="{Binding Path=IsInvalidValue, Converter={StaticResource HeadersGridRowBackgroundConverter}}" IsEditable="True" Text="{Binding Path=Value, Mode=TwoWay}"/>
+        <ComboBox Background="{Binding Path=IsInvalidValue, Converter={StaticResource HeadersGridRowBackgroundConverter}}" ItemsSource="{Binding Path=CommonValues}" IsEditable="True" Text="{Binding Path=Value, Mode=TwoWay}"/>
     </DataTemplate>
 
     <Style x:Key="HeadersDataGridStyle" TargetType="DataGrid">

@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace XHRTool.XHRLogic.Common
 {
@@ -78,8 +79,29 @@ namespace XHRTool.XHRLogic.Common
 
         static XHRRequestModel()
         {
-            CommonVerbs = new List<string>(typeof(HttpMethod).GetProperties(BindingFlags.Public | BindingFlags.Static).Where(p => p.PropertyType == typeof(HttpMethod)).Select(p => p.Name.ToUpper()).ToList());
-            CommonHeaders = typeof(HttpRequestHeaders).GetProperties().Select(p => new HttpHeader(p.Name, string.Empty)).ToList();
+            try
+            {
+                var xDoc = XDocument.Load("XHRHelpData.xml");
+                var xVerbs = xDoc.Root.Element("Verbs").Elements("Verb").Select(e => e.Value).ToList();
+                CommonVerbs = xVerbs;
+                var xHeaders = xDoc.Root.Element("Headers").Elements("Header").Select(e => e).ToList();
+                CommonHeaders = xHeaders.Select(xHeader => 
+                    {
+                        var header = new HttpHeader(xHeader.Attribute("Name").Value);
+                        var xValues = xHeader.Element("Values");
+                        if (xValues != null)
+                        {
+                            header.CommonValues = xValues.Elements("Value").DefaultIfEmpty().Select(e => e.Value).ToList();
+                        }
+                        return header;
+                    }).ToList();
+            }
+            catch (Exception ex)
+            {
+                CommonVerbs = new List<string>();
+                CommonHeaders = new List<HttpHeader>();
+                ErrorLogger.WriteLog(ex);
+            }
         }
     }
 }

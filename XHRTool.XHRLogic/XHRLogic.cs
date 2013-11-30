@@ -13,8 +13,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Helpers;
-using System.Web.UI.WebControls;
 using XHRTool.XHRLogic.Common;
 
 namespace XHRTool.XHRLogic

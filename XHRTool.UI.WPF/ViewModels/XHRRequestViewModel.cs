@@ -129,7 +129,5 @@ namespace XHRTool.UI.WPF.ViewModels
                 onPropertyChanged("TextViewHeaders");
             }
         }
-
-        // TODO store common values for headers
     }
 }

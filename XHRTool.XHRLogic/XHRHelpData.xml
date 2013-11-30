@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HelpContent>
+  <Verbs>
+    <Verb>GET</Verb>
+    <Verb>POST</Verb>
+    <Verb>HEAD</Verb>
+    <Verb>PUT</Verb>
+    <Verb>DELETE</Verb>
+    <Verb>TRACE</Verb>
+    <Verb>OPTIONS</Verb>
+    <Verb>CONNECT</Verb>
+    <Verb>PATCH</Verb>
+  </Verbs>
+
+  <Headers>
+    <Header Name="Accept">
+      <Values>
+        <Value>application/json</Value>
+        <Value>application/xml</Value>
+        <Value>text/html</Value>
+        <Value>text/plain</Value>
+      </Values>
+    </Header>
+    <Header Name="Accept-Charset">
+      <Values>
+        <Value>ISO-8859-1</Value>
+        <Value>UTF-8</Value>
+      </Values>
+    </Header>
+    <Header Name="Accept-Encoding">
+      <Values>
+        <Value>gzip, deflate</Value>
+      </Values>
+    </Header>
+    <Header Name="Accept-Language">
+      <Values>
+        <Value>EN-US</Value>
+      </Values>
+    </Header>
+    <Header Name="Accept-Datetime"/>
+    <Header Name="Authorization">
+      <Values>
+        <Value>Basic </Value>
+      </Values>
+    </Header>
+    <Header Name="Cache-Control">
+      <Values>
+        <Value>no-cache</Value>
+      </Values>
+    </Header>
+    <Header Name="Connection">
+      <Values>
+        <Value>keep-alive</Value>
+      </Values>
+    </Header>
+    <Header Name="Cookie"/>
+    <Header Name="Content-Length"/>
+    <Header Name="Content-MD5"/>
+    <Header Name="Content-Type">
+      <Values>
+        <Value>application/json</Value>
+        <Value>application/xml</Value>
+        <Value>text/html</Value>
+        <Value>text/plain</Value>
+      </Values>
+    </Header>
+    <Header Name="Date"/>
+    <Header Name="Expect"/>
+    <Header Name="From"/>
+    <Header Name="Host"/>
+    <Header Name="If-Match"/>
+    <Header Name="If-Modified-Since"/>
+    <Header Name="If-None-Match"/>
+    <Header Name="If-Range"/>
+    <Header Name="If-Unmodified-Since"/>
+    <Header Name="Max-Forwards"/>
+    <Header Name="Origin"/>
+    <Header Name="Pragma">
+      <Values>
+        <Value>no-cache</Value>
+      </Values>
+    </Header>
+    <Header Name="Proxy-Authorization">
+      <Values>
+        <Value>Basic </Value>
+      </Values>
+    </Header>
+    <Header Name="Range">
+      <Values>
+        <Value>bytes=</Value>
+      </Values>
+    </Header>
+    <Header Name="Referer"/>
+    <Header Name="TE">
+      <Values>
+        <Value>trailers, deflate</Value>
+      </Values>
+    </Header>
+    <Header Name="Upgrade"/>
+    <Header Name="User-Agent">
+      <Values>
+        <Value>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36</Value>
+        <Value>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9) AppleWebKit/537.71 (KHTML, like Gecko) Version/7.0 Safari/537.71</Value>
+        <Value>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0</Value>
+        <Value>Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko</Value>
+      </Values>
+    </Header>
+    <Header Name="Via"/>
+    <Header Name="Warning"/>
+    <Header Name="X-Requested-With">
+      <Values>
+        <Value>XMLHttpRequest</Value>
+      </Values>
+    </Header>
+    <Header Name="DNT">
+      <Values>
+        <Value>0</Value>
+        <Value>1</Value>
+      </Values>
+    </Header>
+    <Header Name="X-Forwarded-For"/>
+    <Header Name="X-Forwarded-Proto">
+      <Values>
+        <Value>HTTP</Value>
+        <Value>HTTPS</Value>
+      </Values>
+    </Header>
+    <Header Name="Front-End-Https">
+      <Values>
+        <Value>on</Value>
+      </Values>
+    </Header>
+    <Header Name="X-ATT-DeviceId"/>
+    <Header Name="X-Wap-Profile"/>
+    <Header Name="Proxy-Connection">
+      <Values>
+        <Value>keep-alive</Value>
+        <Value>close</Value>
+      </Values>
+    </Header>
+  </Headers>
+</HelpContent>

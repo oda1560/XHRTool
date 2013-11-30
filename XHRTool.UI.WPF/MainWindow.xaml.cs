@@ -33,6 +33,7 @@ namespace XHRTool.UI.WPF
         private XHRRequestViewModel _currentRequestViewModel;
         private XHRResponseModel _currentResponseViewModel;
         private string _notes;
+        private string _headersSearchText;
         private ObservableCollection<string> _urlHistory;
         private readonly BinaryFormatter _formatter = new BinaryFormatter();
         readonly string _urlHistoryPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"XHRTool\UrlHistory.bin");
@@ -50,6 +51,18 @@ namespace XHRTool.UI.WPF
                 if (_notes == value) return;
                 _notes = value; 
                 OnPropertyChanged();
+            }
+        }
+
+        public string HeadersSearchText
+        {
+            get { return _headersSearchText; }
+            set
+            {
+                if (_headersSearchText == value) return;
+                _headersSearchText = value;
+                OnPropertyChanged();
+                filterHeaders();
             }
         }
 
@@ -73,6 +86,20 @@ namespace XHRTool.UI.WPF
                 _currentResponseViewModel = value;
                 OnPropertyChanged();
             }
+        }
+
+        void filterHeaders()
+        {
+            if (string.IsNullOrWhiteSpace(HeadersSearchText))
+            {
+                requestHeadersGrid.ItemsSource = CurrentRequestViewModel.UIHeaders;
+                return;
+            }
+            var resultCollection = new ObservableCollection<HttpHeaderViewModel>(from h in CurrentRequestViewModel.UIHeaders
+                                                                                 where h.Name.ToLower().Contains(HeadersSearchText.ToLower()) || 
+                                                                                 h.Value.ToLower().Contains(HeadersSearchText.ToLower())
+                                                                                 select h).ToList();
+            requestHeadersGrid.ItemsSource = resultCollection;
         }
 
         private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)

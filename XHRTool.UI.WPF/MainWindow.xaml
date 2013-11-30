@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-        Title="XHR Tool" Height="550" Width="925" WindowStartupLocation="CenterScreen"
+        Title="XHR Tool" Height="630" Width="925" WindowStartupLocation="CenterScreen"
         Icon="XHRTool.ico"
         xmlns:localViewModels="clr-namespace:XHRTool.UI.WPF.ViewModels"
         xmlns:local="clr-namespace:XHRTool.UI.WPF"
@@ -49,13 +49,24 @@
                             <TextBox Style="{StaticResource EditableMultilineTextBoxStyle}" Text="{Binding Path=TextViewHeaders, Mode=TwoWay}"/>
                         </TabItem>
                         <TabItem Header="Grid View">
-                            <DataGrid RowStyle="{StaticResource HeadersDataGridRowStyle}" CellStyle="{StaticResource HeadersDataGridCellStyle}" ItemContainerStyle="{StaticResource HeadersDataGridItemContainerStyle}" Style="{StaticResource HeadersDataGridStyle}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=UIHeaders}">
-                                <DataGrid.Columns>
-                                    <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding Path=IsSelected, Mode=TwoWay}" />
-                                    <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=Name}" />
-                                    <DataGridTemplateColumn Width="*" Header="Value" CellEditingTemplate="{StaticResource EditingRequestHeaderTemplate}" CellTemplate="{StaticResource ReadOnlyRequestHeaderTemplate}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <ToolBar>
+                                    <Label Content="Search"/>
+                                    <TextBox Text="{Binding Path=HeadersSearchText, ElementName=_MainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                                </ToolBar>
+                                <DataGrid Name="requestHeadersGrid" RowStyle="{StaticResource HeadersDataGridRowStyle}" CellStyle="{StaticResource HeadersDataGridCellStyle}" ItemContainerStyle="{StaticResource HeadersDataGridItemContainerStyle}" Style="{StaticResource HeadersDataGridStyle}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=UIHeaders}">
+                                    <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding Path=IsSelected, Mode=TwoWay}" />
+                                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=Name}" />
+                                        <DataGridTemplateColumn Width="*" Header="Value" CellEditingTemplate="{StaticResource EditingRequestHeaderTemplate}" CellTemplate="{StaticResource ReadOnlyRequestHeaderTemplate}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                            
                         </TabItem>
                     </TabControl>
                     

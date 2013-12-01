@@ -29,6 +29,7 @@ namespace XHRTool.UI.WPF
     public partial class MainWindow : INotifyPropertyChanged
     {
         public static RoutedCommand MakeRequestCommand = new RoutedCommand();
+        public static RoutedCommand AboutCommand = new RoutedCommand();
         readonly XHRLogicManager xhrLogicManager = new XHRLogicManager();
         private XHRRequestViewModel _currentRequestViewModel;
         private XHRResponseModel _currentResponseViewModel;
@@ -102,7 +103,7 @@ namespace XHRTool.UI.WPF
             requestHeadersGrid.ItemsSource = resultCollection;
         }
 
-        private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void MakeRequestCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             if (!UrlHistory.Contains(CurrentRequestViewModel.UIUrl))
             {
@@ -149,7 +150,7 @@ namespace XHRTool.UI.WPF
             }
         }
 
-        private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void MakeRequestCommand_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var urlValid = false;
 
@@ -235,6 +236,12 @@ namespace XHRTool.UI.WPF
             Notes = Properties.Settings.Default.Notes;
             CurrentRequestViewModel.TextViewHeaders = Properties.Settings.Default.Headers;
             CurrentRequestViewModel.Content = Properties.Settings.Default.Content;
+        }
+
+        private void AboutCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var aboutDialog = new AboutDialog();
+            aboutDialog.ShowDialog();
         }
     }
 }

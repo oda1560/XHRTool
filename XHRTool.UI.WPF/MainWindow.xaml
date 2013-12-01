@@ -10,8 +10,10 @@
         Loaded="MainWindow_OnLoaded" Name="_MainWindow" Closing="MainWindow_OnClosing">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static local:MainWindow.MakeRequestCommand}" 
-                        Executed="CommandBinding_OnExecuted" 
-                        CanExecute="CommandBinding_OnCanExecute" />
+                        Executed="MakeRequestCommand_OnExecuted" 
+                        CanExecute="MakeRequestCommand_OnCanExecute" />
+        <CommandBinding Command="{x:Static local:MainWindow.AboutCommand}" 
+                        Executed="AboutCommand_OnExecuted"  />
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -30,10 +32,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Action" Style="{StaticResource CommonUiElementsCommonStyle}" />
-                    <ComboBox SelectedIndex="0" Text="{Binding Path=SelectedAction, Mode=TwoWay}" Name="cbAction" Style="{StaticResource CommonUiElementsCommonStyle}" ItemsSource="{Binding Path=CommonActions}" IsEditable="True" Grid.Column="1" />
+                    <ComboBox SelectedIndex="0" Text="{Binding Path=SelectedAction, Mode=TwoWay}" Style="{StaticResource CommonUiElementsCommonStyle}" ItemsSource="{Binding Path=CommonActions}" IsEditable="True" Grid.Column="1" />
                     <Label Grid.Column="2" Style="{StaticResource CommonUiElementsCommonStyle}" Content="URL" />
-                    <ComboBox Text="{Binding Path=UIUrl, Mode=TwoWay}" ItemsSource="{Binding Path=UrlHistory, ElementName=_MainWindow}" SelectedIndex="0" Name="cbUrl" Style="{StaticResource CommonUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" />
-                    <Button IsDefault="True" Command="{x:Static local:MainWindow.MakeRequestCommand}" Grid.Column="4" Style="{StaticResource CommonUiElementsCommonStyle}" Padding="3" Content="Make Request" Name="bMakeRequest" />
+                    <ComboBox Text="{Binding Path=UIUrl, Mode=TwoWay}" ItemsSource="{Binding Path=UrlHistory, ElementName=_MainWindow}" SelectedIndex="0" Style="{StaticResource CommonUiElementsCommonStyle}"  IsEditable="True" Grid.Column="3" />
+                    <Button IsDefault="True" Command="{x:Static local:MainWindow.MakeRequestCommand}" Grid.Column="4" Style="{StaticResource CommonUiElementsCommonStyle}" Padding="3" Content="Make Request" />
                 </Grid>
             </Grid>
         </GroupBox>
@@ -56,7 +58,7 @@
                                 </Grid.RowDefinitions>
                                 <ToolBar>
                                     <Label Content="Search"/>
-                                    <TextBox Text="{Binding Path=HeadersSearchText, ElementName=_MainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                                    <TextBox BorderBrush="LightSlateGray" Text="{Binding Path=HeadersSearchText, ElementName=_MainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
                                 </ToolBar>
                                 <DataGrid Name="requestHeadersGrid" RowStyle="{StaticResource HeadersDataGridRowStyle}" CellStyle="{StaticResource HeadersDataGridCellStyle}" ItemContainerStyle="{StaticResource HeadersDataGridItemContainerStyle}" Style="{StaticResource HeadersDataGridStyle}" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=UIHeaders}">
                                     <DataGrid.Columns>
@@ -88,8 +90,13 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Content="Notes"/>
-                    <TextBox Grid.Row="1" Text="{Binding Path=Notes, ElementName=_MainWindow, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource EditableMultilineTextBoxStyle}"  Margin="5,0,0,0" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Notes" Style="{StaticResource CommonUiElementsCommonStyle}"/>
+                    <Button Command="{x:Static local:MainWindow.AboutCommand}" Grid.Row="0"  Style="{StaticResource CommonUiElementsCommonStyle}" Width="45" Content="About" Grid.Column="1" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=Notes, ElementName=_MainWindow, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource EditableMultilineTextBoxStyle}"  Margin="5,0,0,0" />
                 </Grid>
             </Grid>
         </GroupBox>

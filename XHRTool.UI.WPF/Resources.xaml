@@ -30,10 +30,13 @@
 
     <Style x:Key="HeadersDataGridCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
         <Style.Setters>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="Margin" Value="2"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
         </Style.Setters>
         <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="IsEditing" Value="True"/>
+            </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Foreground" Value="Black"/>
                 <Setter Property="Background" Value="White" />

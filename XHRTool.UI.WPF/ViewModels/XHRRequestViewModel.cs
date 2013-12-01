@@ -76,15 +76,15 @@ namespace XHRTool.UI.WPF.ViewModels
                     var headerData = l.Split(new [] { ':' }, StringSplitOptions.RemoveEmptyEntries);
                     if (headerData.Length >= 2)
                     {
-                        var existingHeader = UIHeaders.FirstOrDefault(h => h.Name.Equals(headerData[0], StringComparison.OrdinalIgnoreCase));
+                        var existingHeader = UIHeaders.FirstOrDefault(h => h.Name.Equals(headerData[0].Trim(), StringComparison.OrdinalIgnoreCase));
                         if (existingHeader != null)
                         {
                             existingHeader.IsSelected = true;
-                            existingHeader.Value = string.Join(string.Empty, headerData.Skip(1));
+                            existingHeader.Value = string.Join(string.Empty, headerData.Skip(1)).Trim();
                         }
                         else
                         {
-                            var newHeader = new HttpHeaderViewModel { Name = headerData[0], Value = string.Join(string.Empty, headerData.Skip(1)), IsSelected = true };
+                            var newHeader = new HttpHeaderViewModel { Name = headerData[0].Trim(), Value = string.Join(string.Empty, headerData.Skip(1)).Trim(), IsSelected = true };
                             UIHeaders.Insert(0, newHeader);
                         }
                     }

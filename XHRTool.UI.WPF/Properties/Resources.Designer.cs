@@ -61,7 +61,7 @@ namespace XHRTool.UI.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XHR Tool Version 1.0.0.0 - Developed by Igor Khodos
+        ///   Looks up a localized string similar to XHR Tool Version 1.0.0.0
         ///https://github.com/oda1560/XHRTool
         ///Icon created by icontoaster.com (Michael Ludwig) - http://www.icontoaster.com
         ///http://www.iconarchive.com/show/icons-10-bundle-icons-by-icontoaster/network-lan-icon.html.

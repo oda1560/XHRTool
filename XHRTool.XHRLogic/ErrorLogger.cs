@@ -14,7 +14,7 @@ namespace XHRTool.XHRLogic
         {
             try
             {
-                File.AppendAllText("ErrorLog.txt", string.Format("{0} {1}{2}", DateTime.Now.ToString(), logEntry, Environment.NewLine));
+                File.AppendAllText("ErrorLog.txt", string.Format("{0} {1}{2}", DateTime.Now, logEntry, Environment.NewLine));
             }
             catch
             {

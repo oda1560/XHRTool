@@ -20,6 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ABD68A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XHRTool.UI.WPF", "XHRTool.UI.WPF\XHRTool.UI.WPF.csproj", "{98B2A03F-3639-41A1-8983-15DC8E06F9B8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{70156545-5AFB-41BF-AE06-F3656F3E849D}"
+	ProjectSection(SolutionItems) = preProject
+		XHRToolSetup.SED = XHRToolSetup.SED
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

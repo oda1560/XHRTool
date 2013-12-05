@@ -32,7 +32,7 @@ namespace XHRTool.XHRLogic
                 var httpRequest = new StringBuilder();
 
                 // Request header
-                httpRequest.AppendFormat("{0} {1} HTTP/1.1{2}", requestModel.Verb, requestUri.AbsolutePath, Environment.NewLine);
+                httpRequest.AppendFormat("{0} {1} HTTP/1.1{2}", requestModel.Verb, requestUri.AbsolutePath + requestUri.Query, Environment.NewLine);
 
                 // Other HTTP headers
                 var hostHeader = requestModel.Headers.SingleOrDefault(header => header.Name.Equals("host", StringComparison.OrdinalIgnoreCase));

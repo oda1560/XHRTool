@@ -26,7 +26,7 @@ namespace XHRTool.XHRLogic
                 var requestUri = new Uri(requestModel.Url, UriKind.Absolute);
                 var client = new TcpClient
                 {
-                    ReceiveTimeout = 5000
+                    ReceiveTimeout = 60000
                 };
                 client.Connect(requestUri.Host, requestUri.Port);
                 var httpRequest = new StringBuilder();

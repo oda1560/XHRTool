@@ -26,7 +26,7 @@ namespace XHRTool.UI.WPF.ViewModels
     {
         public bool Equals(UrlHistoryModel x, UrlHistoryModel y)
         {
-            return x.Url.Equals(y.Url) && x.Verb.Equals(y.Verb);
+            return x.Url.Equals(y.Url, StringComparison.OrdinalIgnoreCase) && x.Verb.Equals(y.Verb, StringComparison.OrdinalIgnoreCase);
         }
 
         public int GetHashCode(UrlHistoryModel obj)

@@ -18,8 +18,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition />
+            <RowDefinition Name="rRequestInfo" Height=".7*"/>
+            <RowDefinition Name="rResponseInfo" />
         </Grid.RowDefinitions>
         <GroupBox Header="Basic Request Information" d:DataContext="{localViewModels:XHRRequestViewModel}" DataContext="{Binding Path=CurrentRequestViewModel, ElementName=_MainWindow}">
             <Grid>
@@ -39,7 +39,7 @@
                 </Grid>
             </Grid>
         </GroupBox>
-        <Expander DataContext="{Binding Path=CurrentRequestViewModel, ElementName=_MainWindow}" d:DataContext="{localViewModels:XHRRequestViewModel}" IsExpanded="True" Header="Advanced Request Information" Grid.Row="1">
+        <Expander Collapsed="exp_Collapsed" Expanded="exp_Expanded" Name="expRequestInfo" DataContext="{Binding Path=CurrentRequestViewModel, ElementName=_MainWindow}" d:DataContext="{localViewModels:XHRRequestViewModel}" IsExpanded="True" Header="Advanced Request Information" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -68,38 +68,37 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
-                            
                         </TabItem>
                     </TabControl>
-                    
                 </GroupBox>
                 <GroupBox Header="Content" Grid.Column="1">
                     <TextBox Text="{Binding Path=Content, Mode=TwoWay}" Style="{StaticResource EditableMultilineTextBoxStyle}" />
                 </GroupBox>
             </Grid>
         </Expander>
-        <GroupBox Header="Response Information" Grid.Row="2" DataContext="{Binding Path=CurrentResponseViewModel, ElementName=_MainWindow}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width=".3*"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Style="{StaticResource EditableMultilineTextBoxStyle}"  IsReadOnly="True" Text="{Binding Path=Summary, Mode=OneWay}"/>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+        <Expander Collapsed="exp_Collapsed" Expanded="exp_Expanded" Name="expResponseInfo" IsExpanded="True" Header="Response Information" Grid.Row="2">
+            <GroupBox DataContext="{Binding Path=CurrentResponseViewModel, ElementName=_MainWindow}">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width=".3*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Notes" Style="{StaticResource CommonUiElementsCommonStyle}"/>
-                    <Button Command="{x:Static local:MainWindow.AboutCommand}" Grid.Row="0"  Style="{StaticResource CommonUiElementsCommonStyle}" Width="45" Content="About" Grid.Column="1" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=Notes, ElementName=_MainWindow, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource EditableMultilineTextBoxStyle}"  Margin="5,0,0,0" />
+                    <TextBox Style="{StaticResource EditableMultilineTextBoxStyle}"  IsReadOnly="True" Text="{Binding Path=Summary, Mode=OneWay}"/>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Notes" Style="{StaticResource CommonUiElementsCommonStyle}"/>
+                        <Button Command="{x:Static local:MainWindow.AboutCommand}" Grid.Row="0"  Style="{StaticResource CommonUiElementsCommonStyle}" Width="45" Content="About" Grid.Column="1" />
+                        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=Notes, ElementName=_MainWindow, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource EditableMultilineTextBoxStyle}"  Margin="5,0,0,0" />
+                    </Grid>
                 </Grid>
-            </Grid>
-        </GroupBox>
-
+            </GroupBox>
+        </Expander>
     </Grid>
 </Window>

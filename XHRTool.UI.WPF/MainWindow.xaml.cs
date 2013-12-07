@@ -243,5 +243,29 @@ namespace XHRTool.UI.WPF
             var aboutDialog = new AboutDialog();
             aboutDialog.ShowDialog();
         }
+
+        private void exp_Collapsed(object sender, RoutedEventArgs e)
+        {
+            if (sender == expRequestInfo)
+            {
+                rRequestInfo.Height = GridLength.Auto;
+            }
+            else if (sender == expResponseInfo)
+            {
+                rResponseInfo.Height = GridLength.Auto;
+            }
+        }
+
+        private void exp_Expanded(object sender, RoutedEventArgs e)
+        {
+            if (sender == expRequestInfo)
+            {
+                rRequestInfo.Height = new GridLength(.7, GridUnitType.Star);
+            }
+            else if (sender == expResponseInfo)
+            {
+                rResponseInfo.Height = new GridLength(1, GridUnitType.Star);
+            }
+        }
     }
 }

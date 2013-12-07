@@ -75,8 +75,8 @@
     <Compile Include="AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ValueConverters.cs" />
     <Compile Include="ViewModels\HTTPHeaderViewModel.cs" />
+    <Compile Include="ViewModels\UrlHistoryModel.cs" />
     <Compile Include="ViewModels\XHRRequestViewModel.cs" />
     <Page Include="AboutDialog.xaml">
       <SubType>Designer</SubType>
@@ -152,7 +152,9 @@
       <Name>XHRTool.XHRLogic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

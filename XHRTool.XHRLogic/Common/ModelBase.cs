@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace XHRTool.XHRLogic.Common
 {
+    [Serializable]
     public class ModelBase : INotifyPropertyChanged
     {
         #region PropertyChanged

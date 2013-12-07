@@ -21,7 +21,14 @@ namespace XHRTool.UI.WPF.ViewModels
 
         public string SelectedAction
         {
-            get { return _selectedAction; }
+            get 
+            {
+                if (string.IsNullOrWhiteSpace(_selectedAction))
+                {
+                    _selectedAction = "GET";
+                }
+                return _selectedAction; 
+            }
             set 
             {
                 if (_selectedAction == value || string.IsNullOrWhiteSpace(value) || !Regex.IsMatch(value, "([a-z]|[0-9])+", RegexOptions.IgnoreCase)) return;

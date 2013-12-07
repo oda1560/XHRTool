@@ -35,9 +35,10 @@ namespace XHRTool.UI.WPF
         private XHRResponseModel _currentResponseViewModel;
         private string _notes;
         private string _headersSearchText;
-        private ObservableCollection<string> _urlHistory;
+        private ObservableCollection<UrlHistoryModel> _urlHistory;
         private readonly BinaryFormatter _formatter = new BinaryFormatter();
         readonly string _urlHistoryPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"XHRTool\UrlHistory.bin");
+        readonly UrlHistoryModelEqualityComparer urlHistoryModelEqualityComparer = new UrlHistoryModelEqualityComparer();
 
         public MainWindow()
         {
@@ -47,10 +48,10 @@ namespace XHRTool.UI.WPF
         public string Notes
         {
             get { return _notes; }
-            set 
+            set
             {
                 if (_notes == value) return;
-                _notes = value; 
+                _notes = value;
                 OnPropertyChanged();
             }
         }
@@ -70,7 +71,7 @@ namespace XHRTool.UI.WPF
         public XHRRequestViewModel CurrentRequestViewModel
         {
             get { return _currentRequestViewModel ?? (_currentRequestViewModel = new XHRRequestViewModel()); }
-            set 
+            set
             {
                 if (_currentRequestViewModel == value) return;
                 _currentRequestViewModel = value;
@@ -97,7 +98,7 @@ namespace XHRTool.UI.WPF
                 return;
             }
             var resultCollection = new ObservableCollection<HttpHeaderViewModel>(from h in CurrentRequestViewModel.UIHeaders
-                                                                                 where h.Name.ToLower().Contains(HeadersSearchText.ToLower()) || 
+                                                                                 where h.Name.ToLower().Contains(HeadersSearchText.ToLower()) ||
                                                                                  h.Value.ToLower().Contains(HeadersSearchText.ToLower())
                                                                                  select h).ToList();
             requestHeadersGrid.ItemsSource = resultCollection;
@@ -105,15 +106,21 @@ namespace XHRTool.UI.WPF
 
         private void MakeRequestCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (!UrlHistory.Contains(CurrentRequestViewModel.UIUrl))
+            var currentUrlHistoryItem = getCurrentUrlHistoryModel();
+            if (!UrlHistory.Contains(currentUrlHistoryItem, urlHistoryModelEqualityComparer))
             {
-                UrlHistory.Insert(0, CurrentRequestViewModel.UIUrl);
+                UrlHistory.Insert(0, currentUrlHistoryItem);
                 saveHistory();
             }
             CurrentRequestViewModel.Headers = CurrentRequestViewModel.UIHeaders.Where(h => h.IsSelected).Select(h => new HttpHeader(h.Name, h.Value)).ToList();
             _MainWindow.IsEnabled = false;
-            new Action(() => CurrentResponseViewModel = xhrLogicManager.SendXHR(CurrentRequestViewModel)).BeginInvoke((ar => 
+            new Action(() => CurrentResponseViewModel = xhrLogicManager.SendXHR(CurrentRequestViewModel)).BeginInvoke((ar =>
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => _MainWindow.IsEnabled = true))), null);
+        }
+
+        UrlHistoryModel getCurrentUrlHistoryModel()
+        {
+            return new UrlHistoryModel(CurrentRequestViewModel.UIUrl, CurrentRequestViewModel.SelectedAction);
         }
 
         void saveHistory()
@@ -132,21 +139,21 @@ namespace XHRTool.UI.WPF
             }
         }
 
-        ObservableCollection<string> loadUrlHistory()
+        ObservableCollection<UrlHistoryModel> loadUrlHistory()
         {
             try
             {
                 if (!File.Exists(_urlHistoryPath))
                 {
-                    return new ObservableCollection<string>();
+                    return new ObservableCollection<UrlHistoryModel>();
                 }
-                var collection = _formatter.Deserialize(File.Open(_urlHistoryPath, FileMode.Open)) as ObservableCollection<string>;
+                var collection = _formatter.Deserialize(File.Open(_urlHistoryPath, FileMode.Open)) as ObservableCollection<UrlHistoryModel>;
                 return collection;
             }
             catch (Exception ex)
             {
                 ErrorLogger.WriteLog(ex);
-                return new ObservableCollection<string>();
+                return new ObservableCollection<UrlHistoryModel>();
             }
         }
 
@@ -193,7 +200,7 @@ namespace XHRTool.UI.WPF
         }
         #endregion
 
-        public ObservableCollection<string> UrlHistory
+        public ObservableCollection<UrlHistoryModel> UrlHistory
         {
             get
             {
@@ -224,10 +231,10 @@ namespace XHRTool.UI.WPF
         {
             try
             {
-               if (!Directory.Exists(System.IO.Path.GetDirectoryName(_urlHistoryPath)))
-               {
-                   Directory.CreateDirectory(System.IO.Path.GetDirectoryName(_urlHistoryPath));
-               }
+                if (!Directory.Exists(System.IO.Path.GetDirectoryName(_urlHistoryPath)))
+                {
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(_urlHistoryPath));
+                }
             }
             catch (Exception ex)
             {
@@ -266,6 +273,15 @@ namespace XHRTool.UI.WPF
             {
                 rResponseInfo.Height = new GridLength(1, GridUnitType.Star);
             }
+        }
+
+        private void cbUrl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(cbUrl.SelectedItem is UrlHistoryModel))
+            {
+                return;
+            }
+            CurrentRequestViewModel.SelectedAction = (cbUrl.SelectedItem as UrlHistoryModel).Verb;
         }
     }
 }

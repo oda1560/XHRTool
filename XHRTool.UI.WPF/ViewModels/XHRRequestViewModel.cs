@@ -31,7 +31,7 @@ namespace XHRTool.UI.WPF.ViewModels
             }
             set 
             {
-                if (_selectedAction == value || string.IsNullOrWhiteSpace(value) || !Regex.IsMatch(value, "([a-z]|[0-9])+", RegexOptions.IgnoreCase)) return;
+                if (string.IsNullOrWhiteSpace(value) || !Regex.IsMatch(value, "([a-z]|[0-9])+", RegexOptions.IgnoreCase)) return;
                 _selectedAction = value;
                 Verb = new HttpMethod(SelectedAction);
                 onPropertyChanged();
